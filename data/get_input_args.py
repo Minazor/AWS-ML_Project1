@@ -47,7 +47,7 @@ def get_input_args():
     parser.add_argument(
         "--dir",
         type=str,
-        default="data/uploaded_images",
+        default="pet_images",
         help="Path to the folder of pet images",
     )
     parser.add_argument(
@@ -56,7 +56,7 @@ def get_input_args():
     parser.add_argument(
         "--dogfile",
         type=str,
-        default="data/dognames.txt",
+        default="dognames.txt",
         help="Text file with dog names",
     )
 
