@@ -78,14 +78,6 @@ def print_results(
         if key.startswith("pct"):
             print(f"{key: <20} {results_stats_dic[key]:>5.1f}%")
 
-    if print_incorrect_dogs:
-        print("\nINCORRECT Dog/NOT Dog Assignments:")
-        for key in results_dic:
-            if sum(results_dic[key][3:]) == 1:
-                print(
-                    f"Real: {results_dic[key][0]:<26} Classifier: {results_dic[key][1]:<30}"
-                )
-
     if print_incorrect_breed:
         print("\nINCORRECT Dog Breed Assignment:")
         for key in results_dic:
