@@ -68,13 +68,13 @@ def adjust_results4_isadog(results_dic, dogfile):
            None - results_dic is mutable data type so no return needed.
     """
     None
-    dognames_dic = {}
+    dognames_dict = {}
 
     with open(dogfile, "r") as f:
         for line in f:
             dogname = line.strip().lower()
-            if dogname not in dognames_dic:
-                dognames_dic[dogname] = 1
+            if dogname not in dognames_dict:
+                dognames_dict[dogname] = 1
 
     for key in results_dic:
         pet_label = results_dic[key][0]
@@ -88,7 +88,7 @@ def adjust_results4_isadog(results_dic, dogfile):
         classifier_labels = classifier_label.split(", ")
         found_dog = False
         for label in classifier_labels:
-            if label in dognames_dic:
+            if label in dognames_dict:
                 found_dog = True
                 break
 
