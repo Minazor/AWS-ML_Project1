@@ -76,23 +76,13 @@ def adjust_results4_isadog(results_dic, dogfile):
             if dogname not in dognames_dict:
                 dognames_dict[dogname] = 1
 
-    for key in results_dic:
-        pet_label = results_dic[key][0]
-        classifier_label = results_dic[key][1]
-
-        if pet_label in dognames_dict:
-            results_dic[key].append(1)
+    for value in results_dic.values():
+        if value[0] in dognames_dict:
+            value.extend([1])
         else:
-            results_dic[key].append(0)
+            value.extend([0])
 
-        classifier_labels = classifier_label.split(", ")
-        found_dog = False
-        for label in classifier_labels:
-            if label in dognames_dict:
-                found_dog = True
-                break
-
-        if found_dog:
-            results_dic[key].append(1)
+        if value[1] in dognames_dict:
+            value.extend([1])
         else:
-            results_dic[key].append(0)
+            value.extend([0])

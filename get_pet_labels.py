@@ -46,12 +46,8 @@ def get_pet_labels(image_dir):
 
     for filename in filenames:
         if filename[0] != ".":
-            pet_label = ""
             words = filename.lower().split("_")
-            for word in words:
-                if word.isalpha():
-                    pet_label += word + " "
-            pet_label = pet_label.strip()
+            pet_label = " ".join([word.strip() for word in words if word.isalpha()])
 
             if filename not in results_dic:
                 results_dic[filename] = [pet_label]
@@ -59,6 +55,4 @@ def get_pet_labels(image_dir):
                 print(
                     f"** Warning: Key={filename} already exists in results_dic with value={results_dic[filename]}"
                 )
-    # Replace None with the results_dic dictionary that you created with this
-    # function
     return results_dic

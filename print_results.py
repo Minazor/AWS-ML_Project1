@@ -67,21 +67,35 @@ def print_results(
     Returns:
            None - simply printing results.
     """
-    print(f"\n\n*** Results Summary for CNN Model Architecture {model.upper()} ***")
+    print("\n\n*** Results Summary for CNN Model Architecture", model.upper(), "***")
+    print("{:20}: {:3d}".format("N Images", results_stats_dic["n_images"]))
+    print("{:20}: {:3d}".format("N Dog Images", results_stats_dic["n_dogs_img"]))
+    print(
+        "{:20}: {:3d}".format("N Not-a-Dog Images", results_stats_dic["n_notdogs_img"])
+    )
 
-    print(f"{'N Images:':<20} {results_stats_dic['n_images']:>3}")
-    print(f"{'N Dog Images:':<20} {results_stats_dic['n_dogs_img']:>3}")
-    print(f"{'N Not-a-Dog Images:':<20} {results_stats_dic['n_notdogs_img']:>3}")
-
-    print("\n*** Percentages ***")
+    print("\n\n*** Percentage Summary for CNN Model Architecture", model.upper(), "***")
     for key in results_stats_dic:
-        if key.startswith("pct"):
-            print(f"{key: <20} {results_stats_dic[key]:>5.1f}%")
+        if key[0] == "p":
+            print("{:20}: {:.2f}%".format(key, results_stats_dic[key]))
 
-    if print_incorrect_breed:
-        print("\nINCORRECT Dog Breed Assignment:")
+    if print_incorrect_dogs and (
+        (results_stats_dic["n_correct_dogs"] + results_stats_dic["n_correct_notdogs"])
+        != results_stats_dic["n_images"]
+    ):
+        print("\n\n*** Incorrectly Classified Dog/NOT Dog Assignments:")
+        for key in results_dic:
+            if sum(results_dic[key][3:]) == 1:
+                print(
+                    f"Real: {results_dic[key][0]:>26}   Classifier: {results_dic[key][1]:>30}"
+                )
+
+    if print_incorrect_breed and (
+        results_stats_dic["n_correct_dogs"] != results_stats_dic["n_correct_breed"]
+    ):
+        print("\n\n*** Incorrectly Classified Dog Breed Assignment:")
         for key in results_dic:
             if sum(results_dic[key][3:]) == 2 and results_dic[key][2] == 0:
                 print(
-                    f"Real: {results_dic[key][0]:<26} Classifier: {results_dic[key][1]:<30}"
+                    f"Real: {results_dic[key][0]:>26}   Classifier: {results_dic[key][1]:>30}"
                 )
